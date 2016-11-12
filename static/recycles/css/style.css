@@ -383,7 +383,7 @@ img{
 	cursor: text;
 }
 .search-area input[type="submit"] {
-	background-image: url("assets/images/search-icon.png");
+	background-image: url("/stataic/recycles/images/search-icon.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	border: medium none;
@@ -724,18 +724,18 @@ img{
 }
 
 .team-img-1 { 
-	background-image: url(assets/images/team-member1.png);
+	background-image: url(/static/{{template_name}}/images/team-member1.png);
 }
 
 .team-img-2 { 
-	background-image: url(assets/images/team-member2.png);
+	background-image: url(/static/{{template_name}}/images/team-member2.png);
 }
 
 .team-img-3 { 
-	background-image: url(assets/images/team-member3.png);
+	background-image: url(/static/{{template_name}}/images/team-member3.png);
 }
 .team-img-4 { 
-	background-image: url(assets/images/team-member4.png);
+	background-image: url(/static/{{template_name}}/images/team-member4.png);
 }
 .team-info {
 	position: absolute;

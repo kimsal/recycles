@@ -1,0 +1,267 @@
+{% include '/admin/header.html' %} 
+		<!-- END NAVIGATION -->
+		
+		<!-- MAIN PANEL -->
+		<div id="main" role="main">
+
+			<!-- RIBBON -->
+			<div id="ribbon">
+				<span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span>
+			</div>
+			<!-- END RIBBON -->
+
+			<!-- MAIN CONTENT -->
+			<div id="content">
+
+				<!-- row -->
+				<div class="row">
+					<a href="/admin/post/add" class="btn btn-default pull-right btn-add" >
+						<span class="fa fa-plus-circle" aria-hidden="true"></span>
+						New
+					</a>
+					<!-- col -->
+					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+						<h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Post</h1>
+					</div>
+					<!-- end col -->
+					<!-- right side of the page with the sparkline graphs -->
+					<!-- col -->
+					<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+						<!-- sparks -->
+						<!-- end sparks -->
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+				<!--alert-->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+					{% with messages = get_flashed_messages() %}
+	                    {% if messages %}
+	                        {% for message in messages %}
+	                          <div class="alert"> 
+	                            {{ message }}
+	                          </div>
+	                        {% endfor %}
+	                    {% endif %}
+                   	{% endwith %}
+                   	</div>
+				</div>
+				<!--end alert-->
+				<!--
+				The ID "widget-grid" will start to initialize all widgets below
+				You do not need to use widgets if you dont want to. Simply remove
+				the <section></section> and you can use wells or panels instead
+				-->
+
+				<!-- widget grid -->
+				<section id="widget-grid" class="">
+					<!-- row -->
+					<div class="row">
+						<!-- NEW WIDGET START -->
+						<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<table id="jqgrid"></table>
+							<center>
+                        <ul class="pagination pagination-sm">
+                        {% if pagin > 1 %}
+	                        {% if pagin < 8 %}
+			                    	{% for page in range(1,pagin+1) %}
+				                    	{% if page == current_pagin %}
+				                    		<li class="active">
+				                    			<a href="/admin/{{page}}">
+				                    				{{page}}
+				                    			</a>
+				                    		</li>
+				                    	{%else%}
+				                    		<li>
+				                    			<a href="/admin/{{page}}">
+				                    				{{page}}
+				                    			</a>
+				                    		</li>
+				                    	{%endif%}
+									{%endfor%}
+								</ul>
+							{%else %}
+								<li class="{%if current_pagin==1 %}active{%endif%}">
+									<a href="/admin/1">1</a>
+								</li>
+								<li class="{%if current_pagin==2 %}active{%endif%}">
+									<a href="/admin/2">2</a>
+								</li>
+								<li class="{%if current_pagin==3 %}active{%endif%}">
+									<a href="/admin/3">3</a>
+								</li>
+								<li class="{%if current_pagin==4 %}active{%endif%}">
+									<a href="/admin/4">4</a>
+								</li>
+								<li>
+									<a href="#">...</a>
+								</li>
+								{% for page in range(pagin-4,pagin+1) %}
+									{% if current_pagin == page%}
+								  <li class="active">
+								  	<a href="/admin/{{page}}">
+								  		{{page}}
+								  	</a>
+								  	</li>
+								 {%else%}
+								 	<li>
+								  	<a href="/admin/{{page}}">
+								  		{{page}}
+								  	</a>
+								  	</li>
+								 {%endif%}
+								{%endfor%}
+							{%endif%}
+						{%endif%}
+						</ul>
+						</center>
+							<div id="pjqgrid"></div>
+
+							<br>
+							<a href="javascript:void(0)" id="m1"></a>
+							<br>
+							<a href="javascript:void(0)" id="m1s"></a>
+
+						</article>
+						<!-- WIDGET END -->
+
+					</div>
+
+					<!-- end row -->
+
+				</section>
+				<!-- end widget grid -->
+
+			</div>
+			<!-- END MAIN CONTENT -->
+
+		</div>
+		<!-- END MAIN PANEL -->
+
+		
+		<!-- END SHORTCUT AREA -->
+		<script type="text/javascript">
+			var jqgrid_data =[];
+			var temp;
+		</script>
+		 {% for post in posts %}
+		 <script type="text/javascript">
+		 	temp=moment().from("{{post.published_at}}");
+		 	jqgrid_data.push({"title":"<a href='/{{post.slug}}' target='_blank'>{{post.title}}</a>","published_at":temp,"category":"{{post.category.name}}","view":"{{post.views}}","action":"<a href='/admin/post/delete/{{post.slug}}' onclick='return confirm(\"Are you sure ?\")' class='btn btn-xs btn-default'><i class='fa fa-trash-o' style='color:red;'></i></a>  <a href='/admin/post/edit/{{post.slug}}' class='btn btn-xs btn-default'><i class='fa fa-pencil'></i></a>"});
+		 </script>
+		 {%endfor%}
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				pageSetUp();
+
+				jQuery("#jqgrid").jqGrid({
+					data : jqgrid_data,
+					datatype : "local",
+					colNames : ['Title','Published', 'Category', 'Views','Actions'],
+					colModel : [{
+						name : 'title',
+						index : 'title',
+						editable : false
+					}, {
+						name : 'published_at',
+						index : 'published_at',
+						editable : false
+					}, {
+						name : 'category',
+						index : 'category',
+						editable : false
+					}, {
+						name : 'view',
+						index : 'view'
+					}, {
+						name : 'action',
+						index : 'action'
+					}],
+					rowList: [],        // disable page size dropdown
+				    pgbuttons: false,     // disable page control like next, back button
+				    pgtext: null,         // disable pager text like 'Page 0 of 10'
+				    // viewrecords: false    // disable current view record text like 'View 1-10 of 100'
+					viewrecords : true,
+					sortorder : "asc",
+					gridComplete : function() {
+						var ids = jQuery("#jqgrid").jqGrid('getDataIDs');
+						for (var i = 0; i < ids.length; i++) {
+							var cl = ids[i];
+							be = "<a href='/admin/post/delete/' class='btn btn-xs btn-default'><i class='fa fa-trash-o' style='color:red;'></i></a>";
+							se = "";
+							ca = "<a href='' class='btn btn-xs btn-default'><i class='fa fa-pencil'></i></a>";
+							jQuery("#jqgrid").jqGrid('setRowData', ids[i], {
+								act : be + se + ca
+							});
+						}
+					},
+					editurl : "/",
+					caption : "Post",
+					multiselect : false,
+					autowidth : true,
+					height: 3000,
+
+				});
+				jQuery("#jqgrid").jqGrid('navGrid', "#pjqgrid", {
+					edit : false, 
+					add : false,
+					del : true
+				});
+				jQuery("#jqgrid").jqGrid('inlineNav', "#pjqgrid");
+				/* Add tooltips */
+				$('.navtable .ui-pg-button').tooltip({
+					container : 'body'
+				});
+
+				jQuery("#m1").click(function() {
+					var s;
+					s = jQuery("#jqgrid").jqGrid('getGridParam', 'selarrrow');
+					alert(s);
+				});
+				jQuery("#m1s").click(function() {
+					jQuery("#jqgrid").jqGrid('setSelection', "13");
+				});
+
+				// remove classes
+				$(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
+				$(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
+				$(".ui-jqgrid-labels, .ui-search-toolbar").children().removeClass("ui-state-default ui-th-column ui-th-ltr");
+				$(".ui-jqgrid-pager").removeClass("ui-state-default");
+				$(".ui-jqgrid").removeClass("ui-widget-content");
+
+				// add classes
+				$(".ui-jqgrid-htable").addClass("table table-bordered table-hover");
+				$(".ui-jqgrid-btable").addClass("table table-bordered table-striped");
+
+				$(".ui-pg-div").removeClass().addClass("btn btn-sm btn-primary");
+				$(".ui-icon.ui-icon-plus").removeClass().addClass("fa fa-plus");
+				$(".ui-icon.ui-icon-pencil").removeClass().addClass("fa fa-pencil");
+				$(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
+				$(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
+				$(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
+				$(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
+				$(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+
+				$(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
+				$(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");
+
+				$(".ui-icon.ui-icon-seek-first").wrap("<div class='btn btn-sm btn-default'></div>");
+				$(".ui-icon.ui-icon-seek-first").removeClass().addClass("fa fa-fast-backward");
+
+				$(".ui-icon.ui-icon-seek-next").wrap("<div class='btn btn-sm btn-default'></div>");
+				$(".ui-icon.ui-icon-seek-next").removeClass().addClass("fa fa-forward");
+
+				$(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
+				$(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
+
+			})
+
+			$(window).on('resize.jqGrid', function() {
+				$("#jqgrid").jqGrid('setGridWidth', $("#content").width());
+			})
+
+		</script>
+
+{% include '/admin/footer.html' %} 

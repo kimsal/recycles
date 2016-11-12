@@ -1,0 +1,316 @@
+{% include 'admin/header.html' %} 
+<link href="/static/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<style type="text/css">
+  .other_image{
+    height:50px;
+    background-color:#79aec8;
+    color:white;
+    font-weight:bold;
+    line-height:50px;
+  }
+  .more{
+    color:#447e9b;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top:10px;
+    cursor: pointer;
+  }
+  .more:hover{
+    color:#036;
+  }
+  .delete{
+    color:red;
+    cursor: pointer;
+    padding-left:10px;
+    font-weight: bold;
+    text-align: right;
+  }
+  .delete:hover{
+    color:#E88;
+
+  }
+  .btnsub {
+    margin-left: 3px;
+  }
+  tr td img{
+    margin-top:10px;
+  }
+  input[type="file"] {
+    display: block;
+    margin-right: 5px;
+  }
+  .upload-file {
+    padding: 0px;
+  }
+  .feature-img ,.img-1 {
+    border-radius: 3px;
+    border: solid thin gray;
+  }
+  .set-title {
+    font-weight: 300;
+    background-color: #79aec8;
+    padding:7px;
+    border-radius: 3px;
+    color:white;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .set-title:hover{
+    background-color:#79aec8;
+  }
+</style>
+<script type="text/javascript">
+  var img_no=0;
+</script>
+<div id="main" role="main">
+<!-- RIBBON -->
+  <div id="ribbon">
+
+    <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span>
+  </div>
+  <article class="col-sm-12 col-md-12 col-lg-12">
+    <a href="/admin/event/add" class="btn btn-default pull-right btn-add" >
+      <span class="fa fa-plus-circle" aria-hidden="true"></span>
+      New
+    </a>
+    <!-- col -->
+    <div>
+      <h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Event</h1>
+    </div>
+    <!-- end col -->
+    <!-- right side of the page with the sparkline graphs -->
+    <!-- col -->
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+      <!-- sparks -->
+      <!-- end sparks -->
+    </div>
+    <!-- end col -->
+  </article>
+  <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert"> 
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+<!-- END RIBBON -->
+  <form class="form-horizontal" action="/admin/event/add/" method="POST" id="frm" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <textarea name="description" id="description" style="display:none;"></textarea> 
+  <input type="text" value="" name="all_removed_images" style="display:none;" />
+   <input type="text" name="txt_temp_image" class="txt_temp_image" value="" style="display:none"/>
+    <!-- input title-->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+        
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+          {{ form.title(class_="form-control", placeholder="Title", required="") }}
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
+            <div class="col-sm-12 col-lg-12 col-md-12">
+              <div class="btn-group pull-right btnsub">         
+                <button class="btn btn-sm btn-primary" type="reset">
+                  <i class="fa fa-times"></i> Cancel
+                </button>          
+              </div>
+              <div class="btn-group pull-right btnsub">   
+                <button class="btn btn-sm btn-success btn-save" type="submit">
+                  <i class="fa fa-check"></i> Save
+                </button>    
+              </div>
+            </div>
+        </div>
+      </div>
+    </article>
+    <article class="col-sm-9 col-md-9 col-lg-9">
+      <!-- Widget ID (each widget will need unique ID)-->
+      <div class="jarviswidget jarviswidget-color-blue" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
+          <h5 style="color:white;font-weight:bold;margin-left:10px;padding-left:10px;margin-top:6px;"> &nbsp;&nbsp;Description
+          </h5>
+        </header>
+        <!-- widget div-->
+        <div>
+          <!-- widget edit box -->
+          <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+          </div>
+          <!-- end widget edit box -->
+          <!-- widget content -->
+          <div class="widget-body no-padding">
+            <div class="summernote">     
+            </div>     
+          </div>
+          <!-- end widget content -->
+        </div>
+        <!-- end widget div -->
+      </div>
+      <!-- end widget -->
+    </article>
+    <article class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+        <!--feature image-->
+         <div class="col-sm-12">
+            <h4 style="height:60px;font-weight:bold;"><b>
+              <center class="set-title"><b>Feature image</b></center>
+            </b></h4>
+         </div>
+
+        <div class="form-group">
+          <center>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+               <div class="span4 cropme" id="landscape" style="width:200px; height: 150px;">
+               </div>
+              </div>
+          </center>
+        </div>
+      <script>
+         // Init Simple Cropper
+        $('.cropme').simpleCropper('feature_image','feature_image','txt_temp_image');
+        $('#portrait').hide();
+        $('.switch').click(function (){
+            $(this).text("Switch to "+($('#portrait').is(":visible") ? "Portrait" : "Landscape"));
+          $('#portrait').toggle();
+          $('#landscape').toggle();
+        });    
+      </script>
+        <!--end feature image-->
+    </article>
+<!-- WIDGET END -->
+    <article class="col-sm-9 col-md-9 col-lg-9">
+      
+    </article>
+    <article class="col-sm-9 col-md-9 col-lg-9">
+      <div class="form-group">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <link href="/static/admin/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+                              
+
+              <div class="input-group date form_datetime col-md-5" data-date="2016-06-16T05:25:07Z" data-date-format="dd-MM-yyyy  hh:ii" data-link-field="dtp_input1">
+                <!-- <input class="form-control" size="16" type="text" value="" readonly> -->
+
+                  {{ form.date(class_="form-control",readonly="",size="16") }}
+
+                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+              </div>
+              <input type="hidden" id="dtp_input1" value="" /><br/>
+          </div>
+
+<script type="text/javascript" src="/static/admin/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/admin/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+        showMeridian: 1
+    });
+  $('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0
+    });
+  $('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    minView: 0,
+    maxView: 1,
+    forceParse: 0
+    });
+</script>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+          </div>
+      </div>
+    </article>
+     
+  </form>
+</div>
+<div style="height:10px;"></div>
+<div class="col-xs-12 hidden-sm hidden-md hidden-lg ">
+  <center>
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="btn-group btnsub">         
+        <button class="btn btn-sm btn-primary" type="reset">
+          <i class="fa fa-times"></i> Cancel
+        </button>          
+      </div>
+      <div class="btn-group btnsub">   
+        <button class="btn btn-sm btn-success btn-save" type="submit">
+          <i class="fa fa-check"></i> Save
+        </button>    
+      </div>
+    </div>
+  </center>
+</div>
+
+<div class="col-sm-12" style="height:100px;"></div>
+  
+<script type="text/javascript">
+  if(feature_image==''){
+    feature_image='/static/images/no image.jpg';
+   }
+   $("#landscape").html('<img src="'+feature_image+'" class="img-responsive feature-img"/> ');
+</script>
+<script type="text/javascript">
+
+//save help
+$(".btn-save").click(function(){
+    var description = '';
+    description = $(".note-editable.custom-scroll").html();
+    $('textarea[name="description"]').html(description);
+});
+</script>
+{% include 'admin/footer.html' %} 
+
+ <script>
+    var image_string='';
+    var feature_image='';
+  </script>
+  {% for event in events %}
+  <script type="text/javascript">
+  $(document).ready(function(){
+    pageSetUp();
+   $('input#title').attr('value',"{{event.title}}"); 
+   $('#frm').attr('action','/admin/event/edit/{{event.slug}}/');
+   $('#description').html("{{event.description.replace('\n', '').replace('\r','').replace('"',"'")|safe}}");
+   $('.note-editable.custom-scroll').html("{{event.description.replace('\n', '').replace('\r','').replace('"',"'")|safe}}");
+   $('input#date').attr("value","{{event.date}}");
+   // $(".feature_output").attr("src","/static/images/feature_images/{{event.feature_image}}");
+   feature_image="{{event.feature_image}}";
+   if(feature_image!=''){
+     $("#landscape").html('<img src="'+feature_image+'"/>');
+     //alert(feature_image);
+   }
+   $(".txt_temp_image").attr('value',feature_image);
+  });
+
+ </script>
+ 
+{% endfor %}
+<script type="text/javascript">
+  if(feature_image==''){
+    feature_image='/static/images/no image.jpg';
+   }
+   $("#landscape").html('<img src="'+feature_image+'" style="width:280px;height:200px" class="img-responsive"/> ');
+</script>

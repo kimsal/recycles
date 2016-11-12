@@ -1,0 +1,251 @@
+{% include 'admin/header.html' %} 
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+  <!-- RIBBON -->
+  <div id="ribbon">
+    <span class="ribbon-button-alignment"> 
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span> 
+    </span>
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+      <li>Admin</li><li>Category</li>
+    </ol>
+
+  </div>
+  <!-- END RIBBON -->
+  <!-- MAIN CONTENT -->
+  <div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+      <!-- row -->
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+              {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert" style="margin-left:1px;"> 
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+          </div>
+      </div>
+      <div class="row"> 
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <!-- Widget ID (each widget will need unique ID)-->
+          <!-- Widget ID (each widget will need unique ID)-->
+          <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-18" data-widget-colorbutton="false" data-widget-editbutton="false">
+            <header>
+              <p style="margin:7px;"><strong>Category</strong> <i>Page</i></p>       
+              
+            </header>
+
+            <!-- widget div-->
+            <div>
+              
+              <!-- end widget edit box -->
+              
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <div class="widget-body-toolbar">
+                  
+                  <div class="row">
+                    <form action="/admin/category/add/" method="POST" id="frm">
+                     {{ form.hidden_tag() }}
+                    <div class="col-xs-9 col-sm-5 col-md-5 col-lg-5">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-plus"></i></span>
+                        {{ form.name(class_="form-control") }}
+                       <!--   <input class="form-control" id="name" name="name" type="text" value=""> -->
+                      </div>
+                    </div>
+                    <div class="col-xs-3 col-sm-7 col-md-7 col-lg-7 text-right">
+
+                      <button style="margin-right:3px;" type="submit" class="btn btn-success" title="Save category">
+                        <span class="hidden-mobile">Save</span>
+                      </button>
+                      <a href="/admin/category/add/" class="btn btn-default pull-right " >
+                      <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                        New
+                     </a>
+                    </form>
+                    </div>
+                    
+                  </div>
+                  
+                    
+
+                </div>
+                
+                <div class="custom-scroll table-responsive" style="min-height:290px; overflow-y: scroll;">
+                  
+
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th><i class="fa fa-key text-warning"></i> ID</th>
+                        <th>Category Name
+                         <!-- <i class="text-danger">!</i> -->
+                         </th>
+                        <th>Is Menu</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories%}
+                      <tr>
+                        <td>{{category.id}}</td>
+                        
+                          <td>
+                          <a href="/admin/category/edit/{{category.slug}}">
+                            {{category.name}}
+                            </a>
+                          </td>
+                        
+                        <td>
+                          {%if category.is_menu==1%}
+                            Yes
+                          {%else%}
+                            No
+                           {%endif%}
+                        </td>
+                        <td>
+                         <a title="Delete" href="/admin/category/delete/{{category.slug}}" style="color:red;" onclick='return confirm("Are you sure ?")'> 
+                          <span class="fa fa-trash-o btn-circle btn-warning" aria-hidden="true">
+                          </span>
+                        </td>
+                      </tr>
+                    {%endfor%}
+                    </tbody>
+                  </table>
+                
+                </div>
+                
+                
+              
+              </div>
+              <!-- end widget content -->
+              
+            </div>
+            <!-- end widget div -->
+            
+          </div>
+          <!-- end widget -->
+
+        </article> 
+      </div>
+
+    </section>
+    <!-- end widget grid -->
+
+  </div>
+  <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END MAIN PANEL -->
+
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <span class="txt-color-white">SmartAdmin WebApp © 2013-2014</span>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 text-right hidden-xs">
+      <div class="txt-color-white inline-block">
+        <i class="txt-color-blueLight hidden-mobile">Last account activity <i class="fa fa-clock-o"></i> <strong>52 mins ago &nbsp;</strong> </i>
+        <div class="btn-group dropup">
+          <button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
+            <i class="fa fa-link"></i> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu pull-right text-left">
+            <li>
+              <div class="padding-5">
+                <p class="txt-color-darken font-sm no-margin">Download Progress</p>
+                <div class="progress progress-micro no-margin">
+                  <div class="progress-bar progress-bar-success" style="width: 50%;"></div>
+                </div>
+              </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <div class="padding-5">
+                <p class="txt-color-darken font-sm no-margin">Server Load</p>
+                <div class="progress progress-micro no-margin">
+                  <div class="progress-bar progress-bar-success" style="width: 20%;"></div>
+                </div>
+              </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <div class="padding-5">
+                <p class="txt-color-darken font-sm no-margin">Memory Load <span class="text-danger">*critical*</span></p>
+                <div class="progress progress-micro no-margin">
+                  <div class="progress-bar progress-bar-danger" style="width: 70%;"></div>
+                </div>
+              </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <div class="padding-5">
+                <button class="btn btn-block btn-default">refresh</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END PAGE FOOTER --> 
+       <script type="text/javascript">
+    
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    
+    $(document).ready(function() {
+      
+      pageSetUp();
+      
+      // PAGE RELATED SCRIPTS
+    
+      // switch style change
+      $('input[name="checkbox-style"]').change(function() {
+        //alert($(this).val())
+        $this = $(this);
+    
+        if ($this.attr('value') === "switch-1") {
+          $("#switch-1").show();
+          $("#switch-2").hide();
+        } else if ($this.attr('value') === "switch-2") {
+          $("#switch-1").hide();
+          $("#switch-2").show();
+        }
+    
+      }); 
+      
+      // tab - pills toggle
+      $('#show-tabs').click(function() {
+        $this = $(this);
+        if($this.prop('checked')){
+          $("#widget-tab-1").removeClass("nav-pills").addClass("nav-tabs");
+        } else {
+          $("#widget-tab-1").removeClass("nav-tabs").addClass("nav-pills");
+        }
+        
+      });     
+    
+    });
+
+    </script>
+{% for c in cat %}
+ <script type="text/javascript">
+   $('input#name').attr('value',"{{c.name|safe}}");  
+   $('#frm').attr('action','/admin/category/edit/{{c.slug}}/');
+ </script>
+{% endfor %}
+{% include 'admin/footer.html' %} 
+

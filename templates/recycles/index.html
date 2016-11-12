@@ -1,0 +1,305 @@
+
+{% include template_name+'/header.html' %}
+
+
+  <!-- Start Testimonial section -->
+  <section id="testimonial" style="margin-bottom:20px;">
+    <img src="/static/{{template_name}}/images/testimonial-bg.jpg" alt="img">
+    <div class="counter-overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Start Testimonial area -->
+            <div class="testimonial-area">
+              <div class="title-area">
+                <h2 class="tittle">What people say about us</h2>
+                <span class="tittle-line"></span>              
+              </div>
+              <div class="testimonial-conten">
+                <!-- Start testimonial slider -->
+                <div class="testimonial-slider">
+                  <!-- single slide -->
+                  <div class="single-slide">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcoquat. Duis aute irure d olor in reprehenderit</p>
+                    <div class="single-testimonial">
+                      <img class="testimonial-thumb" src="/static/{{template_name}}/images/testimonial-image1.png" alt="img">
+                      <p>Jonna Hike</p>
+                      <span>CEO, Themeforest</span>
+                    </div>
+                  </div>
+                  <!-- single slide -->
+                  <div class="single-slide">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcoquat. Duis aute irure d olor in reprehenderit</p>
+                    <div class="single-testimonial">
+                      <img class="testimonial-thumb" src="/static/{{template_name}}/images/team-member2.png" alt="img">
+                      <p>Jonna Hike</p>
+                      <span>CEO, Themeforest</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </section>
+  <!-- End Testimonial section --> 
+
+  <!-- Start from blog section -->
+  <section id="from-blog" style="background-color: #F6F6F6; padding: 15px;">
+    <div class="container" style="background-color: #fff; padding-top: 10px; >
+      <div class="row">
+        <div class="col-md-12">
+          <div class="from-blog-area">
+            <div class="title-area">
+              <h2 class="tittle">Most Recent Donation Offers</h2>
+              <span class="tittle-line" style="width: 35%;"></span>
+            </div>
+            <!-- From Blog content -->
+            {%for post in home_posts%}
+            <div class="from-blog-content">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="text-align:center;">
+                  <article class="single-from-blog">
+                    <figure>
+                      <a href="blog-single.html"><img src="{{post.feature_image}}" alt="img" style="width:80%"></a>
+                    </figure>
+                  </article>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                  <article class="single-from-blog">
+                    <div class="blog-title" style="padding:0px;">
+                      <h2><a href="blog-single.html">{{post.title}}</a></h2>
+                      <p>Post on <span class="blog-date">{{post.published_at}}</span></p>
+                    </div>
+                    <p>
+                    {{post.description | safe | truncate(400)}}
+                    </p>
+                  </article>
+                </div>
+              </div>
+              {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End from blog section -->
+  
+
+  <!-- Start call to action -->
+  <section id="call-to-action">
+    <img src="/static/{{template_name}}/images/call-to-action-bg.png" alt="img">
+    <div class="call-to-overlay">
+      <div class="container">
+        <div class="call-to-content wow fadeInUp">
+          <h2>Place your offer to donate here</h2>
+          <a href="#" class="button button-default" data-text="Donate"><span>Donate</span></a>
+        </div>
+      </div>
+    </div> 
+  </section>
+  <!-- End call to action -->
+
+
+  <!-- contact -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="about-area">
+            <div class="row">
+             <p style="font-size:25px; text-align:center; color: green;">Contact</p>
+             <hr>
+              <div class="col-md-5 col-sm-5 col-xs-5 col-lg-5">
+                <div class=" wow fadeInLeft">
+                  <img src="/static/{{template_name}}/images/about-img.jpg" alt="img" class="img-responsive">
+                </div>
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-7 col-lg-7">
+                <div class="about-right wow fadeInRight">
+                  <div class="title-area">
+                    <p>Chances are every one of your questions has already been answered, but we're hoping to hear something new from you!</p> 
+
+                    <p>Our dream is to always hear valuable feedback from each and every one of our readers, but please be considerate of our time when asking question that may have already been answered in our FAQ.</p>
+
+                    <p>You may pre-register your interest with us, but before you do, both potential donors and nonprofit participants are strongly encouraged to read our FAQ to understand how and why we function as we do.
+                    There's never an obligation or risk to you!</p>
+                              
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- end contact -->
+  <!-- Start Contact section -->
+  <section id="contact" style="margin-bottom:10px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="contact-left wow fadeInLeft">
+            <h2>Contact with us</h2>
+            <address class="single-address">
+              <h4>Postal address:</h4>
+              <p>PO Box 16122 Collins Street West Victoria 8007 Australia</p>
+            </address>
+             <address class="single-address">
+              <h4>Headquarters:</h4>
+              <p>121 King Street, Melbourne Victoria 3000 Australia</p>
+            </address>
+             <address class="single-address">
+              <h4>Phone</h4>
+              <p>Phone Number: (123) 456 7890</p>
+              <p>Fax Number: (123) 456 7890</p>
+            </address>
+             <address class="single-address">
+              <h4>E-Mail</h4>
+              <p>Support: Support@example.com</p>
+              <p>Sales: sales@example.com</p>
+            </address>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <div class="contact-right wow fadeInRight">
+            <h2 style="text-align:center;">Register</h2>
+            <form action="" class="contact-form">
+              <div class="form-group">                
+                <input type="text" class="form-control" placeholder="First Name">
+              </div>
+              <div class="form-group">                
+                <input type="text" class="form-control" placeholder="Last Name">
+              </div>
+              <div class="form-group">                
+                <input type="email" class="form-control" placeholder="Enter Email">
+              </div> 
+<!--               <div class="form-group">
+                  <select class="form-control" id="select">
+                    <option>Want to Donate Equipment</option>
+                    <option>Want to Request Equipment</option>
+                    <option>Other</option>
+                  </select>
+              </div>    -->          
+              <div class="form-group">
+                <textarea class="form-control" rows="4" placeholder="Your message"></textarea>
+              </div>
+              <button type="submit" data-text="SUBMIT" class="button button-default"><span>SUBMIT</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Contact section -->
+
+
+  <!-- Start from blog section -->
+  <section id="from-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="from-blog-area">
+            <div class="title-area">
+              <h2 class="tittle">Our blog</h2>
+              <span class="tittle-line"></span>
+              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est</p>
+            </div>
+            <!-- From Blog content -->
+            <div class="from-blog-content">
+              <div class="row">
+                <div class="col-md-4">
+                  <article class="single-from-blog">
+                    <figure>
+                      <a href="blog-single.html"><img src="/static/{{template_name}}/images/the-sky.jpg" alt="img"></a>
+                    </figure>
+                    <div class="blog-title">
+                      <h2><a href="blog-single.html">Here is the post title</a></h2>
+                      <p>Posted by <a class="blog-admin" href="#">admin</a> on <span class="blog-date">23rd july 2015</span></p>
+                    </div>
+                    <p>Sed ut perspiciatis unde mnis is te natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis </p>
+                    <div class="blog-footer">
+                      <a href="#"><span class="fa fa-comment"></span>18 Comments</a>
+                      <a href="#"><span class="fa fa-thumbs-o-up"></span>35 Likes</a>
+                    </div>
+                  </article>
+                </div>
+                <div class="col-md-4">
+                  <article class="single-from-blog">
+                    <figure>
+                      <a href="blog-single.html"><img src="/static/{{template_name}}/images/photographer.jpg" alt="img"></a>
+                    </figure>
+                    <div class="blog-title">
+                      <h2><a href="blog-single.html">Here is the post title</a></h2>
+                      <p>Posted by <a class="blog-admin" href="#">admin</a> on <span class="blog-date">23rd july 2015</span></p>
+                    </div>
+                    <p>Sed ut perspiciatis unde mnis is te natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis </p>
+                    <div class="blog-footer">
+                      <a href="#"><span class="fa fa-comment"></span>18 Comments</a>
+                      <a href="#"><span class="fa fa-thumbs-o-up"></span>35 Likes</a>
+                    </div>
+                  </article>
+                </div>
+                <div class="col-md-4">
+                  <article class="single-from-blog">
+                    <figure>
+                      <a href="blog-single.html"><img src="/static/{{template_name}}/images/sealand.jpg" alt="img"></a>
+                    </figure>
+                    <div class="blog-title">
+                      <h2><a href="blog-single.html">Here is the post title</a></h2>
+                      <p>Posted by <a class="blog-admin" href="#">admin</a> on <span class="blog-date">23rd july 2015</span></p>
+                    </div>
+                    <p>Sed ut perspiciatis unde mnis is te natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis </p>
+                    <div class="blog-footer">
+                      <a href="#"><span class="fa fa-comment"></span>18 Comments</a>
+                      <a href="#"><span class="fa fa-thumbs-o-up"></span>35 Likes</a>
+                    </div>
+                  </article>
+                </div>
+              </div>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End from blog section -->
+
+  <section id="client">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="client-area">
+            <ul class="client-table">
+              <li><img src="/static/{{template_name}}/images/envato.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/google.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/amazon.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/discovery.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/envato.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/tuenti.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/envato.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/google.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/amazon.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/discovery.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/envato.png" alt="client logo"></li>
+              <li><img src="/static/{{template_name}}/images/tuenti.png" alt="client logo"></li>                    
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Start Google Map -->
+  <section id="google-map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.698912281327!2d104.8905078506798!3d11.573428691743414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095176107e45fb%3A0xd4050445961ddaaf!2sSmallWorld+Cambodia!5e0!3m2!1sen!2skh!4v1474074428378" width="1500" height="300" frameborder="0" style="border:0" allowfullscreen></iframe> 
+  </section>
+  <!-- End Google Map -->
+
+  
+{% include template_name+'/footer.html' %}

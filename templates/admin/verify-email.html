@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="verify email address">
+<meta name="author" content="">
+<link href="/static/admin/css/bootstrap.min.css" rel="stylesheet">
+<title>Recovery your email address</title>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Bootstrap Core CSS -->
+<style type="text/css">
+  .padding-top{
+    padding-top: 100px;
+  }
+  .padding-top1{
+    padding-top: 100px;
+  }
+  .frm{
+    border-radius: 3px;
+    border:1 solid thin gray;
+    background-color: #2C82C9;
+    padding: 20px;
+  }
+  h4{
+    color: white;
+  }
+</style>
+</head>
+<body>
+    <div class="container">
+      <div class="row padding-top hidden-xs">
+        
+      </div>
+      <div class="row padding-top1 hidden-sm hidden-md hidden-lg">
+        
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+            To recovery your password, please enter it below and click on <b>Send Password To This Email Address</b> button. A verification email will sent to the email address you entered.
+             <br/><br/>
+             {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                    <li class="alert"> 
+                      {{ message }}
+                    </li>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+        </div>
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+          
+          <form class="frm" method="POST" action="/recovery/">
+              <h4>
+                Enter your Email Address to recovery your password
+              </h4>
+              <hr>
+              <div class="form-group">
+                  <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email..." required>
+              </div>
+              <button type="submit" class="btn btn-default">
+                 <b>Send Password To This Email Address</b>
+              </button>
+              <a href="/admin/login" class="btn btn-default">
+                Login
+              </a>
+              <button type="reset" class="btn btn-default">
+                Cancel
+              </button>
+              
+
+          </form>
+        </div>
+        <div class="hidden-xs col-sm-4 col-md-4 col-lg-4"></div>
+      </div>
+    </div>
+</body>
+</html>

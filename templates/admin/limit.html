@@ -1,0 +1,181 @@
+{% include '/admin/header.html' %} 
+<div id="main" role="main">
+
+            <!-- RIBBON -->
+            <div id="ribbon">
+
+                <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span>
+            </div>
+            <!-- END RIBBON -->
+
+            <!-- MAIN CONTENT -->
+            <div id="content">
+
+                <!-- row -->
+                <div class="row">
+                    <button class="btn btn-default pull-right btn-add" >
+                        <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                        New
+                    </button>
+                    <!-- col -->
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                        <h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Post</h1>
+                    </div>
+                    <div class="message alert" style="display:none">
+                    </div>
+                     {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert"> 
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    <!-- end col -->
+
+                    <!-- right side of the page with the sparkline graphs -->
+                    <!-- col -->
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                        <!-- sparks -->
+                        
+                        <!-- end sparks -->
+                    </div>
+                    <!-- end col -->
+
+                </div>
+                <!-- end row -->
+
+                <!--
+                The ID "widget-grid" will start to initialize all widgets below
+                You do not need to use widgets if you dont want to. Simply remove
+                the <section></section> and you can use wells or panels instead
+                -->
+
+                <!-- widget grid -->
+                <section id="widget-grid" class="">
+                    <!-- row -->
+                    <div class="row">
+                        <!-- NEW WIDGET START -->
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <!-- Widget ID (each widget will need unique ID)-->
+                                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                                        <h2>Limit your post</h2>
+                                    </header>
+                                    <div class="row">
+                                    <!-- <div class="widget-body no-padding"> -->
+                                        <form class="smart-form" >
+                                            <fieldset>
+                                                <div class="row">
+                                                    <section class="col col-5">
+                                                        <label class="input">
+                                                            <input type="text" name="txtlimit" id="txtlimit"  required value="{{limit}}">
+                                                        </label>
+                                                    </section>
+                                                    <section class="col col-5">
+                                                        <span class="">
+                                                            <input type="button" class="btn btn-sm btn-info" id="btnlimit" value="Save"/>
+                                                        </span>
+                                                    </section>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <section class="col col-5">
+                                                        <h2>
+                                                            What is "Limit Post"?
+                                                        </h2>
+                                                        <p>
+                                                             You can set up as many limits as you like, for different post types, different user roles, whatever you like. When a user tries to create a new post, the limits are checked, if the user has exceeded any of the limits, they wont be able to publish.
+                                                        </p>
+                                                    </section>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </article>
+                        <!-- WIDGET END -->
+                    </div>
+                   <!-- end row -->
+
+                </section>
+                <!-- end widget grid -->
+
+            </div>
+            <!-- END MAIN CONTENT -->
+
+        </div>
+        <!-- END MAIN PANEL -->
+<script>
+//input only number
+$("#txtlimit").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+         // Allow: Ctrl+A, Command+A
+        (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+         // Allow: home, end, left, right, down, up
+        (e.keyCode >= 35 && e.keyCode <= 40)) {
+             // let it happen, don't do anything
+             return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+//start to update "limit post"
+$("#btnlimit").click(function(){
+    var number=parseInt($("#txtlimit").val());
+    if($("#txtlimit").val()!=''){
+        $.ajax({
+          type: "GET",
+          url: '/admin/limit/'+number,
+          success: function(response) {
+            console.log(":"+response);
+            if(response.success=='Ok'){
+                $(".message").html('<li>Number updated successfully.</li>');
+                $(".message").addClass('alert-success');
+                $(".message").css('display',"block");
+            }
+            else{
+                $(".message").html("<li>Can't Update limit number.</li>");
+                $(".message").addClass('alert-danger');
+                $(".message").css('display',"block");
+            }
+          }
+        });
+    }
+    else{
+        $(".message").html('<li>Number is required</li>');
+        $(".message").addClass('alert-danger');
+        $(".message").css('display',"block");
+    }
+});
+</script>
+
+{% include 'admin/footer.html' %} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

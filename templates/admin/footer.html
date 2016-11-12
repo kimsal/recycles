@@ -1,0 +1,80 @@
+<!--for editor-->
+<script>
+	if (!window.jQuery) {
+		document.write('<script src="/static/admin/js/libs/jquery-2.0.2.min.js"><\/script>');
+	}
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script>
+	if (!window.jQuery.ui) {
+		document.write('<script src="/static/admin/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+	}
+</script>
+<!--================================================== -->
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="/static/admin/js/plugin/pace/pace.min.js"></script>
+<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+
+<script>
+	if (!window.jQuery) {
+		document.write('<script src="/static/admin/js/libs/jquery-2.0.2.min.js"><\/script>');
+	}
+</script>
+
+<script>
+	if (!window.jQuery.ui) {
+		document.write('<script src="/static/admin/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+	}
+</script>
+<!-- Demo purpose only -->
+<script src="/static/admin/js/demo.min.js"></script>
+<!-- MAIN APP JS FILE -->
+<!-- PAGE FOOTER -->
+	<div class="page-footer">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<span class="txt-color-white">
+				<a href="http://www.amoogli.com/" style="color:#999">Amoogkli 
+				</a> © 2016
+				</span>
+			</div>
+
+			<div class="col-xs-6 col-sm-6 text-right hidden-xs">
+				<div class="txt-color-white inline-block">
+					<i class="txt-color-blueLight hidden-mobile">Web publishing and communication plateform.
+				</div>
+			</div>
+		</div>
+	</div>		
+		<!-- END SHORTCUT AREA -->
+<script>
+	if($(".alert").length>0){
+		if(($(".alert").html()).indexOf("success")>=0||($(".alert").html()).indexOf("Please check your email to recovery the password.")>=0){
+			$(".alert").addClass('alert-success');
+		}
+		else{
+			$(".alert").addClass('alert-danger');
+		}
+	}
+</script>
+	<script type="text/javascript">		
+			// DO NOT REMOVE : GLOBAL FUNCTIONS!			
+			$(document).ready(function() {		
+				pageSetUp();
+
+				/*
+				 * SUMMERNOTE EDITOR
+				 */			
+				$('.summernote').summernote({
+					height : 450,
+					focus : false,
+					tabsize : 2
+				});	
+			})
+		</script>
+<!--editor-->
+<script src="/static/admin/js/plugin/markdown/markdown.min.js"></script>
+<script src="/static/admin/js/plugin/markdown/to-markdown.min.js"></script>
+<script src="/static/admin/js/plugin/markdown/bootstrap-markdown.min.js"></script>
+</body>
+</html>

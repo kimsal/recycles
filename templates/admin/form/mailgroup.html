@@ -1,0 +1,247 @@
+{% include 'admin/header.html' %}
+   <!-- MAIN PANEL -->
+    <div id="main" role="main">
+
+      <!-- RIBBON -->
+      <div id="ribbon">
+
+        <span class="ribbon-button-alignment"> 
+          <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+          </span> 
+        </span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+          <li>Home</li><li>Inbox</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+      </div>
+      <!-- END RIBBON -->
+
+      <!-- MAIN CONTENT -->
+      <div id="content">
+
+        <div class="inbox-nav-bar no-content-padding">
+        
+          <h1 class="page-title txt-color-blueDark hidden-tablet"><i class="fa fa-fw fa-inbox"></i> Email &nbsp;
+            <span class="btn-group">
+              <a href="#" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret single"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/admin/email">Compose</a>
+                </li>
+                <li>
+                  <a href="/admin/email/group">Group</a>
+                </li>
+                <li>
+                  <a href="/admin/mail">Mail</a>
+                </li>
+                <li>
+                  <a href="/admin/email/sending">Sending</a>
+                </li>
+              </ul>
+            </span>
+          </h1>
+          <div class="inbox-checkbox-triggered">
+        
+            <div class="btn-group"> 
+            </div>
+        
+          </div>
+          <div class="btn-group inbox-paging">
+            <form id="frm" role="form" action="/admin/email/group/" method="POST">
+              <div class="col-md-10">
+                <input class="form-control" name="name" placeholder="Group ..." type="text" required value="">
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary" placeholder="Group ..." type="submit">
+                <i class="fa fa-plus"></i> &nbsp;
+                Save&nbsp;
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div id="inbox-content" class="inbox-body no-content-padding">
+        
+          <div class="inbox-side-bar">
+        
+            <a href="/admin/email"  class="btn btn-primary btn-block"> <strong>Compose</strong> </a>
+        
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/email/group/"> Group </a>
+              </li>
+            </ul>
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/mail/"> Mail </a>
+              </li>
+            </ul>
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/email/sending">
+                {%if email_to_send==0 %}
+                   No email sending 
+                {%elif email_to_send==1%}
+                  {{email_to_send}} sending email ... 
+                {%else%}
+                  {{email_to_send}} sending emails ... 
+                {%endif%}
+                </a>
+              </li>
+            </ul>
+            
+        
+            <div class="air air-bottom inbox-space">
+        
+             <!--  <strong>{{email_to_send}} email </strong> sending ...
+
+              <div class="progress progress-micro">
+                <div class="progress-bar progress-primary" style="width: 34%;"></div>
+              </div> -->
+            </div>
+        
+          </div>
+          <!-- <div class="table-wrap custom-scroll animated fast fadeInRight"> -->
+            <!-- ajax will fill this area -->
+            <!-- LOADING... -->
+
+            <div style="height: 503px; opacity: 1;" class="table-wrap custom-scroll animated fast fadeInRight"><table id="inbox-table" class="table table-striped table-hover">
+              <tbody>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                     {% for message in messages %}
+                      <tr id="msg29">
+                        <div class="col-md-12 col-xs-12 alert">
+                          {{ message }}
+                        </div>
+                       </tr>
+                   {% endfor %}
+                  {% endif %}
+                 {% endwith %}
+
+                 <tr id="msg29">
+                  <td class="inbox-table-icon">
+                    <div class="checkbox">
+                      <label>
+                        <span></span> </label>
+                    </div>
+                  </td>
+                  <td class="inbox-data-from">
+                    <div>
+                        <b>Group Name</b>
+                    </div>
+                  </td>
+                  <td class="inbox-data-date hidden-xs">
+                    <div>
+                       <b>Created date</b>
+                    </div>
+                  </td>
+                   <td class="inbox-data-date">
+                    <div>
+                      <b>Action</b>
+                    </div>
+                  </td>
+                </tr>
+                {%for group in groups%}
+                <tr id="msg29">
+                  <td class="inbox-table-icon">
+                    <div class="checkbox">
+                      <label>
+                        <input class="checkbox style-2" checked="true" type="checkbox">
+                        <span></span> </label>
+                    </div>
+                  </td>
+                  <td class="inbox-data-from">
+                    <div>
+                      <a class="name" href="/admin/email/group/{{group.id}}/view/" title="View members">
+                        {{group.name}}
+                      </a>
+                    </div>
+                  </td>
+                  <td class="inbox-data-date hidden-xs">
+                    <div>
+                       {{group.published_at.strftime('%d-%h-%Y')}}
+                    </div>
+                  </td>
+                   <td class="inbox-data-date">
+                    <div>
+                       <a href="/admin/email/group/{{group.name}}/delete/" style="color:gray;" onclick="return confirm('Are you sure ?')" title="Delete">
+                        <i class="fa fa-trash-o" aria-hidden="true">
+                          
+                        </i>
+                      </a>
+                      <a class="name" href="/admin/email/group/{{group.name}}/edit/" style="margin-left:10px;" title="Edit">
+                         <i class="fa fa-edit" aria-hidden="true">
+                          </i>
+                       </a>
+                    </div>
+                  </td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+
+           
+            </div>
+        
+          <!-- </div> -->
+        
+          <div class="inbox-footer">
+        
+            <div class="row">
+        
+              <div class="col-xs-6 col-sm-1">
+        
+                <div class="txt-color-white hidden-desktop visible-mobile">
+                  3.5GB of <strong>10GB</strong>
+        
+                  <div class="progress progress-micro">
+                    <div class="progress-bar progress-primary" style="width: 34%;"></div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-xs-6 col-sm-11 text-right">
+                <div class="txt-color-white inline-block">
+                  <i class="txt-color-blueLight hidden-mobile">Last account activity <i class="fa fa-clock-o"></i> 52 mins ago |</i> Displaying <strong>44 of 259</strong>
+                </div>
+              </div>
+        
+            </div>
+        
+          </div>
+        
+        </div>
+
+
+      </div>
+      <!-- END MAIN CONTENT -->
+
+    </div>
+    <!-- END MAIN PANEL -->
+    <script src="/statiac/admin/js/plugin/summernote/summernote.min.js"></script>
+    <script src="/statiac/adminjs/plugin/delete-table-row/delete-table-row.min.js"></script>
+   <script type="text/javascript">
+     if("{{name}}"!=''){
+        $('input[name="name"]').attr('value',"{{name|safe}}")
+        $('#frm').attr('action','/admin/email/group/{{name}}/edit/');
+      }
+   </script>
+
+{% include 'admin/footer.html' %}

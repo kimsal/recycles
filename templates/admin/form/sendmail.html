@@ -1,0 +1,287 @@
+{% include 'admin/header.html' %}
+   <!-- MAIN PANEL -->
+    <div id="main" role="main">
+
+      <!-- RIBBON -->
+      <div id="ribbon">
+
+        <span class="ribbon-button-alignment"> 
+          <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+            <i class="fa fa-refresh"></i>
+          </span> 
+        </span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+          <li>Home</li><li>Inbox</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+      </div>
+      <!-- END RIBBON -->
+
+      <!-- MAIN CONTENT -->
+      <div id="content">
+
+        <div class="inbox-nav-bar no-content-padding">
+        
+          <h1 class="page-title txt-color-blueDark hidden-tablet"><i class="fa fa-fw fa-inbox"></i> Email &nbsp;
+            <span class="btn-group">
+              <a href="#" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret single"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/admin/email">Compose</a>
+                </li>
+                <li>
+                  <a href="/admin/email/group">Group</a>
+                </li>
+                <li>
+                  <a href="/admin/mail">Mail</a>
+                </li>
+                <li>
+                  <a href="/admin/email/sending">Sending</a>
+                </li>
+              </ul>
+            </span>
+          </h1>
+        
+          <div class="btn-group hidden-desktop visible-tablet">
+            
+        
+          </div>
+        
+          <div class="inbox-checkbox-triggered">
+        
+            <div class="btn-group">
+              
+            </div>
+        
+          </div>
+         
+        </div>
+        
+        <div id="inbox-content" class="inbox-body no-content-padding">
+        
+          <div class="inbox-side-bar">
+        
+            <a href="/admin/email"  class="btn btn-primary btn-block"> <strong>Compose</strong> </a>
+        
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/email/group/"> Group </a>
+              </li>
+            </ul>
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/mail/"> Mail </a>
+              </li>
+            </ul>
+            <ul class="inbox-menu-lg">
+              <li class="active">
+                <a class="inbox-load" href="/admin/email/sending">
+                {%if email_to_send==0 %}
+                   No email sending 
+                {%elif email_to_send==1%}
+                  {{email_to_send}} sending email ... 
+                {%else%}
+                  {{email_to_send}} sending emails ... 
+                {%endif%}
+                </a>
+              </li>
+            </ul>
+        
+            <div class="air air-bottom inbox-space">
+        
+             
+            </div>
+        
+          </div>
+          <!-- LOADING compose box -->
+             <div style="height: auto; opacity: 1;" class="table-wrap custom-scroll animated fast fadeInRight"><h2 class="email-open-header">
+              Compose New Email <!-- <span class="label txt-color-white">DRAFT</span> -->
+              {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                     {% for message in messages %}
+                      <tr id="msg29">
+                        <div class="col-md-12 col-xs-12 alert">
+                          {{ message }}
+                        </div>
+                       </tr>
+                   {% endfor %}
+                  {% endif %}
+                 {% endwith %}
+            </h2>
+            <!--form email write-->
+            <form action="/admin/email/" method="POST" id="frm" enctype="multipart/form-data" id="email-compose-form">
+              <!--temp textbox-->
+              <textarea class="form-control ckeditor" id="description" name="description" style="display:none"></textarea>
+              <!--End help form-->
+              <div class="inbox-info-bar no-padding">
+                <div class="row">
+                  <!-- <div class="form-group">
+                    <label class="control-label col-md-1"><strong>To</strong></label>
+                    <div class="col-md-11">
+                    <input type="text" name="to" style="width:100%;height:100%;border:none;">
+
+                      <select multiple style="width:100%" class="select2" data-select-search="true">
+                        <option value="sunny.orlaf@smartadmin.com">sadi.orlaf@smartadmin.com</option>
+                        <option value="rachael.hawi@smartadmin.com">rachael.hawi@smartadmin.com</option>
+                        <option value="michael.safiel@smartadmin.com">michael.safiel@smartadmin.com</option>
+                        <option value="alex.jones@infowars.com">alex.jones@infowars.com</option>
+                        <option value="oruf.matalla@gmail.com">oruf.matalla@gmail.com</option>
+                        <option value="hr@smartadmin.com">hr@smartadmin.com</option>
+                        <option value="IT@smartadmin.com">IT@smartadmin.com</option>
+                      </select>
+                    </div>
+                  </div> -->
+                </div>  
+              </div>
+              
+              
+             
+              
+              <div class="inbox-info-bar no-padding">
+                <div class="row">
+                  <div class="form-group">
+                    <label class="control-label col-md-1"><strong><!-- Subject --></strong></label>
+                    <div class="col-md-11">
+                      <input class="form-control" placeholder="Email Subject" type="text" name="subject" id="subject">
+                      
+                    </div>
+                  </div>
+                </div>  
+              </div>
+              <div class="inbox-message no-padding">
+              
+                <div id="emailbody">
+                    <br><br><br><br><br>Thanks,<br><strong>Amoogli Team</strong><br><br><small><br> No. 17, St. 604, 12152 Phnom Penh<br><i class="fa fa-phone"> (855) 77 504 106</i></small><br>    
+                </div>  
+              </div>
+              
+              <div class="inbox-compose-footer" style="min-height:50px;">
+                <div class="well well-sm well-light">
+                  <h5><b>Select group to send</b></h5>
+                  <ul class="list-unstyled">
+                   {%for group in groups%}
+                    <li>
+                      <input type="checkbox" name="groups"  id="group_{{group.id}}" value="{{group.id}}">{{group.name}}
+                    </li>
+                    <script type="text/javascript">
+                      $("input#group_{{group.id}}").change(function(){
+                        var value = $(this).val();
+                        var help;
+                        if($('input#group_{{group.id}}').is(':checked')){
+                          //add email to send
+                          help=false;
+                        }
+                        else
+                        {
+                          //remove from sending box
+                          help=true;
+                        }
+                      });
+                    </script>
+                    {%endfor%}
+                  </ul>
+                </div>
+              </div>
+              <div class="">
+              <br/>
+                <button data-loading-text="&lt;i class='fa fa-refresh fa-spin'&gt;&lt;/i&gt; &nbsp; Sending..." class="btn btn-primary btn-send pull-right" type="submit" id="send" style="clear:both;float:none">
+                  Send
+                  <i class="fa fa-arrow-circle-right fa-lg"></i>
+                </button>
+
+
+              </div>
+
+            </form>
+      <script type="text/javascript">
+        $(".btn-send").click(function(){
+          var temp=$("div.note-editable.custom-scroll").html();
+          $('textarea[name="description"]').html(temp);
+          // alert(temp);
+          // return false;
+        });
+      </script>
+            <!--end form email write -->
+            <!--end form email write -->
+      <script type="text/javascript">
+        
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        runAllForms();
+
+         // PAGE RELATED SCRIPTS
+
+        $(".table-wrap [rel=tooltip]").tooltip();
+
+
+
+          $('#emailbody').summernote({
+              height: 250,
+              focus: false,
+              tabsize: 2
+          });
+
+
+        $(".show-next").click(function () {
+            $this = $(this);
+            $this.hide();
+            $this.parent().parent().parent().parent().parent().next().removeClass("hidden");
+        })
+
+         $("#send").click(function () {
+
+            var $btn = $(this);
+            $btn.button('loading');
+
+            // wait for animation to finish and execute send script
+            setTimeout(function () {
+                //Insert send script here
+
+
+                // Load inbox once send is complete
+        
+            loadURL("ajax/email/email-list.html", $('#inbox-content > .table-wrap'))
+
+
+            }, 1000); // how long do you want the delay to be? 
+        });
+        
+        
+      </script>
+      </div>
+          <!-- END LOADING COMPOSE box -->
+        
+         
+        
+        </div>
+
+
+      </div>
+      <!-- END MAIN CONTENT -->
+
+    </div>
+    <!-- END MAIN PANEL -->
+
+    <script src="/statiac/admin/js/plugin/summernote/summernote.min.js"></script>
+    <script src="/statiac/adminjs/plugin/delete-table-row/delete-table-row.min.js"></script>
+
+    <script src="/static/admin/js/plugin/summernote/summernote.min.js"></script>
+    <script src="/static/admin/js/plugin/delete-table-row/delete-table-row.min.js"></script>
+
+   
+
+{% include 'admin/footer.html' %}

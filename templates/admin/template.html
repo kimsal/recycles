@@ -1,0 +1,162 @@
+{% include '/admin/header.html' %} 
+<style type="text/css">
+    .template{
+        border-bottom: 1px solid #DAE1EC;
+        padding:10px;
+    }
+</style>
+
+<!-- MAIN PANEL -->
+
+
+<div id="main" role="main">
+
+            <!-- RIBBON -->
+            <div id="ribbon">
+
+                <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span>
+<!-- Demo purpose only -->
+                </span> -->
+            </div>
+            <!-- END RIBBON -->
+
+            <!-- MAIN CONTENT -->
+            <div id="content">
+
+                <!-- row -->
+                <div class="row">
+                   <!--  <button class="btn btn-default pull-right btn-add" >
+                        <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                        New
+                    </button> -->
+                    <!-- col -->
+                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                        <h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Template</h1>
+                    </div>
+                     {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for message in messages %}
+                          <div class="alert"> 
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    <!-- end col -->
+
+                    <!-- right side of the page with the sparkline graphs -->
+                    <!-- col -->
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                        <!-- sparks -->
+                        
+                        <!-- end sparks -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+                <!-- widget grid -->
+                <section id="widget-grid" class="">
+                    <!-- row -->
+                    <div class="row">
+                        <!-- NEW WIDGET START -->
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <!-- Widget ID (each widget will need unique ID)-->
+                                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                                        <h2>Templates </h2>
+                                    </header>
+                                    <!-- <div class="widget-body no-padding"> -->
+
+                                        {%for template in templates_dir %}
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 template">
+                                                
+                                                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                                        <img src="/static/{{template}}/screenshoot.png" class="img-responsive"/>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                        <h5 class="title1">
+                                                            <label>{{template}}
+                                                            </label>
+                                                        </h5>
+                                                        <p>
+                                                            This is our first free template. 
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                                        By Kimsal San
+                                                        <a href="/admin/template/{{template}}">
+                                                            <label class="btn btn-install btn-primary" style="border-radius:2px;">Install</label>
+                                                        </a>
+                                                    </div>
+                                                </div> 
+                                            </div> 
+
+                                        {%endfor%}
+                                    <!-- </div> -->
+                                </div>
+                            </article>
+                        <!-- WIDGET END -->
+                    </div>
+                   <!-- end row -->
+
+                </section>
+                <!-- end widget grid -->
+
+            </div>
+            <!-- END MAIN CONTENT -->
+
+        </div>
+        <!-- END MAIN PANEL -->
+<script>
+    
+    //input only number
+    $("#txtlimit").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A, Command+A
+            (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+             // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+    //start to update "limit post"
+    $("#btnlimit").click(function(){
+        var number=parseInt($("#txtlimit").val());
+        if($("#txtlimit").val()!=''){
+            $.ajax({
+              type: "GET",
+              url: '/admin/limit/'+number,
+              success: function(response) {
+                console.log(":"+response);
+                if(response.success=='Ok'){
+                    $(".message").html('<li>Number updated successfully.</li>');
+                    $(".message").addClass('alert-success');
+                    $(".message").css('display',"block");
+                }
+                else{
+                    $(".message").html("<li>Can't Update limit number.</li>");
+                    $(".message").addClass('alert-danger');
+                    $(".message").css('display',"block");
+                }
+              }
+            });
+        }
+        else{
+            $(".message").html('<li>Number is required</li>');
+            $(".message").addClass('alert-danger');
+            $(".message").css('display',"block");
+        }
+    });
+</script>
+
+{% include 'admin/footer.html' %} 
+

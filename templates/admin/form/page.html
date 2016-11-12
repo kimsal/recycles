@@ -1,0 +1,196 @@
+{% include 'admin/header.html' %} 
+<style type="text/css">
+  .other_image{
+    height:50px;
+    background-color:#79aec8;
+    color:white;
+    font-weight:bold;
+    line-height:50px;
+  }
+  .more{
+    color:#447e9b;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top:10px;
+    cursor: pointer;
+  }
+  .more:hover{
+    color:#036;
+  }
+  .delete{
+    color:red;
+    cursor: pointer;
+    padding-left:10px;
+    font-weight: bold;
+    text-align: right;
+  }
+  .delete:hover{
+    color:#E88;
+  }
+  .btnsub {
+    margin-left: 3px;
+  }
+  tr td img{
+    margin-top:10px;
+  }
+  input[type="file"] {
+    display: block;
+    margin-right: 5px;
+  }
+  .upload-file {
+    padding: 0px;
+  }
+  .feature-img ,.img-1 {
+    border-radius: 3px;
+    border: solid thin gray;
+  }
+  .set-title {
+    font-weight: 300;
+    background-color: #79aec8;
+    padding:7px;
+    border-radius: 3px;
+    color:white;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .set-title:hover{
+    background-color:#79aec8;
+  }
+</style>
+<script type="text/javascript">
+  var img_no=0;
+</script>
+<div id="main" role="main">
+<!-- RIBBON -->
+  <div id="ribbon">
+    <span class="ribbon-button-alignment"> <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"> <i class="fa fa-refresh"></i> </span> </span>
+  </div>
+  <article class="col-sm-12 col-md-12 col-lg-12">
+    <a href="/admin/page/add" class="btn btn-default pull-right btn-add" >
+      <span class="fa fa-plus-circle" aria-hidden="true"></span>
+      New
+    </a>
+    <!-- col -->
+    <div>
+      <h1 class="page-title txt-color-blueDark"><!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Page</h1>
+    </div>
+    <!-- end col -->
+    <!-- right side of the page with the sparkline graphs -->
+    <!-- col -->
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+      <!-- sparks -->
+      <!-- end sparks -->
+    </div>
+    <!-- end col -->
+  </article>
+  <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert"> 
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+<!-- END RIBBON -->
+  <form class="form-horizontal" action="/admin/page/add/" method="POST" id="frm" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <textarea name="description" id="description" style="display:none;"> </textarea> 
+    <!-- input title-->
+    <article class="col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+          {{ form.title(class_="form-control", placeholder="Title", required="") }}
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
+            <div class="col-sm-12 col-lg-12 col-md-12">
+              <div class="btn-group pull-right btnsub">         
+                <button class="btn btn-sm btn-primary" type="reset">
+                  <i class="fa fa-times"></i> Cancel
+                </button>          
+              </div>
+              <div class="btn-group pull-right btnsub">   
+                <button class="btn btn-sm btn-success btn-save" type="submit">
+                  <i class="fa fa-check"></i> Save
+                </button>    
+              </div>
+            </div>
+        </div>
+      </div>
+    </article>
+    <article class="col-sm-9 col-md-9 col-lg-9">
+      <!-- Widget ID (each widget will need unique ID)-->
+      <div class="jarviswidget jarviswidget-color-blue" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-fullscreenbutton="false" data-widget-sortable="false">
+        <header>
+          <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
+          <h5 style="color:white;font-weight:bold;margin-left:10px;padding-left:10px;margin-top:6px;"> &nbsp;&nbsp;Description
+          </h5>
+        </header>
+        <!-- widget div-->
+        <div>
+          <!-- widget edit box -->
+          <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+          </div>
+          <!-- end widget edit box -->
+          <!-- widget content -->
+          <div class="widget-body no-padding">
+            <div class="summernote">     
+            </div>     
+          </div>
+          <!-- end widget content -->
+        </div>
+        <!-- end widget div -->
+      </div>
+      <!-- end widget -->
+    </article>
+  </form>
+</div>
+<div style="height:10px;"></div>
+<div class="col-xs-12 hidden-sm hidden-md hidden-lg ">
+  <center>
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="btn-group btnsub">         
+        <button class="btn btn-sm btn-primary" type="reset">
+          <i class="fa fa-times"></i> Cancel
+        </button>          
+      </div>
+      <div class="btn-group btnsub">   
+        <button class="btn btn-sm btn-success btn-save" type="submit">
+          <i class="fa fa-check"></i> Save
+        </button>    
+      </div>
+    </div>
+  </center>
+</div>
+<!-- PAGE RELATED PLUGIN(S) EDITOR -->
+<script>
+  if (!window.jQuery.ui) {
+    document.write('<script src="/static/admin/js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+  }
+</script>
+<script type="text/javascript" src="/static/admin/js/addMoreImage.js"></script>
+<div class="col-sm-12" style="height:100px;"></div>
+<script type="text/javascript">
+//save help
+$(".btn-save").click(function(){
+    var description = '';
+    description = $(".note-editable.custom-scroll").html();
+    $('textarea[name="description"]').html(description);
+});
+</script>
+{% include 'admin/footer.html' %} 
+{% for p in page %}
+   <script type="text/javascript">
+   $(document).ready(function(){
+     pageSetUp();
+     $('input#title').attr('value',"{{p.title|safe}}"); 
+     $('#frm').attr('action','/admin/page/edit/{{p.slug}}/');
+     $('.note-editable.custom-scroll').html("{{p.description.replace('\n', '').replace('\r','').replace('"',"'")|safe}}");
+    });
+ </script>
+{% endfor %}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="/static/admin/css/bootstrap.min.css" rel="stylesheet">
+<title>Register Blog | amouk.com</title>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css"> -->
+<!-- Bootstrap Core CSS -->
+<style type="text/css">
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+html {
+  overflow-y: scroll; 
+}
+body {
+  background:$body-bg;
+  font-family: 'Titillium Web', sans-serif;
+}
+.title-log {
+  padding: 16px 20px;
+  font-size: 36px;
+  line-height: 42px;
+  font-weight: 300;
+  color: #1e2024;
+  margin-bottom: 40px;
+  text-align: center;
+}
+input[type="text"] {
+  border-radius: 2px;
+    width: 100%;
+    padding: 16px 20px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid RGBA(85, 85, 85, 0.2);
+    outline: none;
+    color: #ab9c9c;
+    background-color: RGBA(231, 231, 231, 0.18);
+}
+input[type=text]:focus {
+    background-color: RGBA(231, 231, 231, 0.18);
+    background-color: rgba(217,219,223,0.25);
+    color: #282830;
+}
+input[type="submit"] {
+  width: 100%;
+  border-radius: 2px;
+  padding: 13px 25px 12px 25px;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: RGBA(17, 116, 198, 0.79);
+  color: #F6F7F2;
+  margin-top: 15px;
+}
+input[type="password"] {
+  border-radius: 2px;
+    width: 100%;
+    padding: 16px 20px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid RGBA(85, 85, 85, 0.2);
+    outline: none;
+    color: #ab9c9c;
+    background-color: RGBA(231, 231, 231, 0.18);
+}
+input[type="email"] {
+  border-radius: 2px;
+    width: 100%;
+    padding: 16px 20px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid RGBA(85, 85, 85, 0.2);
+    outline: none;
+    color: #ab9c9c;
+    background-color: RGBA(231, 231, 231, 0.18);
+}
+input[type="email"]:focus {
+  background-color: RGBA(231, 231, 231, 0.18);
+    background-color: rgba(217,219,223,0.25);
+    color: #282830;
+}
+input[type="password"]:focus {
+  background-color: RGBA(231, 231, 231, 0.18);
+    background-color: rgba(217,219,223,0.25);
+    color: #282830;
+}
+input[type="submit"]:hover {
+  background-color: #3D8EB9;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+    color: white;
+}
+@media screen and (max-width: 500px) {
+  .container {
+    padding: 0px;
+  }
+  .col-xs-12 {
+    padding: 0px;
+  }
+  form {
+    padding: 0px;
+  }
+  .title-log {
+      padding: 0px 0px;
+      font-size: 19px;
+      line-height: 10px;
+      font-weight: 300;
+      color: #1e2024;
+      margin-bottom: 40px;
+      text-align: center;
+  }
+}
+h1 {
+  text-align:center;
+  color:$white;
+  font-weight:$thin;
+  margin:0 0 40px;
+}
+.form {
+  padding-top: 150px;
+  padding: 16px 20px;
+  margin: 10px 0;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="form">
+            <form role="form " class="frm" action="/admin/register/" method="POST">
+              <center>
+                <h2 class="title-log">Sign up</h2>
+              </center>
+              {{ form.hidden_tag() }}
+              <!-- <input type="text" id="name" name="name" required="" placeholder="Enter your name..."> -->
+              {{ form.name(class_="",required="",placeholder="Enter your name...") }}
+  <!--             <input type="email" id="email" name="email" required="" placeholder="Email address..."> -->
+               {{ form.email(class_="",required="", placeholder="Email address...") }}
+             <!--  <input type="password" id="pwd" name="pwd" required="" placeholder="Create password..."> -->
+               {{ form.password(class_="",required="",placeholder="Create password...") }}
+              <input type="submit" class="btn btn-default" name="sub" value="Sign Up">
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <li class="alert alert-alert" style="color:red;font-weight: bold;"> 
+                    {{ message }}
+                  </li>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+        </form>
+      </div>
+    </div>
+    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div>
+  </div>
+</body>
+</html>
